@@ -1,0 +1,9 @@
+import type { Address } from "viem";
+
+export const SALE_ADDRESS: Address =
+  // "0x8154D93EaD283a04937BFC0fF68238e1E74194cA";
+  "0x10155e6D7d817743Fd7E638b59Ec19babD61D153"; // test
+
+export const USDT_ADDRESS: Address =
+  // "0x55d398326f99059fF775485246999027B3197955";
+  "0xaa259826361Ef78378E062df2278e1A6CfbFFD47"; // test

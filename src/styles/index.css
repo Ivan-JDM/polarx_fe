@@ -1,0 +1,117 @@
+@import "tailwindcss";
+/* @import "tailwindcss/preflight"; */
+@tailwind utilities;
+
+button {
+  &:active {
+    opacity: 0.9;
+  }
+}
+
+
+/* 全局重置，可按需扩展 */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #F2F2F4;
+  /* 禁用下拉刷新 */
+  /* overscroll-behavior: none;
+  overscroll-behavior-y: none; */
+}
+
+/* 确保viewport-fit=cover生效 */
+html {
+  /* 支持iOS Safari的safe-area */
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* safe area bottom 用于底部 Tab 等 */
+.safe-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.safe-top {
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+}
+.safe-area {
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 常用 touch 优化 */
+.button-tap {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* 禁用下拉刷新和过度滚动 */
+.no-pull-refresh {
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  touch-action: pan-x pan-y;
+}
+
+.color-primary {
+  color: #2A74FC;
+}
+
+.bg-primary {
+  background-color: #2A74FC;
+}
+
+.bg-secondary {
+  background-color: #22E818;
+}
+
+/* 给移动 WebKit 优化滚动 */
+.scroll-smooth {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 简单字体与字号策略（可根据项目用 rem / px 转换） */
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+}
+
+/* 调试用：显示safe-area区域（开发时可以启用） */
+.debug-safe-area::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: constant(safe-area-inset-top);
+  height: env(safe-area-inset-top);
+  background: rgba(255, 0, 0, 0.3);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.debug-safe-area::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: constant(safe-area-inset-bottom);
+  height: env(safe-area-inset-bottom);
+  background: rgba(0, 255, 0, 0.3);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+
+/* 特别针对移动端滚动容器 */
+.scroll-container {
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
+}

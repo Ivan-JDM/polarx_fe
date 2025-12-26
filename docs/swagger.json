@@ -1,0 +1,447 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "My Project",
+    "description": "This is a swagger-ui for midwayjs project",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Admin",
+      "description": ""
+    },
+    {
+      "name": "Default",
+      "description": ""
+    },
+    {
+      "name": "Merchant",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "AdminRegisterDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Admin name",
+            "type": "string"
+          },
+          "email": {
+            "description": "Admin email",
+            "type": "string"
+          },
+          "password": {
+            "description": "Admin password",
+            "minLength": 6,
+            "type": "string"
+          }
+        }
+      },
+      "AdminLoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "Admin email",
+            "type": "string"
+          },
+          "password": {
+            "description": "Admin password",
+            "type": "string"
+          }
+        }
+      },
+      "MerchantListDto": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "description": "Page number",
+            "required": false,
+            "default": 1,
+            "type": "number"
+          },
+          "pageSize": {
+            "description": "Page size",
+            "required": false,
+            "default": 10,
+            "type": "number"
+          },
+          "status": {
+            "description": "Merchant status filter",
+            "required": false,
+            "type": "number",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        }
+      },
+      "MerchantAuditDto": {
+        "type": "object",
+        "properties": {
+          "merchantId": {
+            "description": "Merchant ID",
+            "type": "number"
+          },
+          "status": {
+            "description": "Audit status",
+            "type": "number",
+            "enum": [
+              2,
+              3
+            ]
+          }
+        }
+      },
+      "CreateMerchantDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Merchant name",
+            "type": "string"
+          },
+          "address": {
+            "description": "Merchant wallet address (TRC20)",
+            "type": "string"
+          },
+          "identity": {
+            "description": "Identity information (JSON format)",
+            "example": {
+              "id_card": "http://example.com/id_card.jpg",
+              "passport": "http://example.com/passport.jpg"
+            },
+            "type": "object"
+          }
+        }
+      },
+      "SendEmailCodeDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "Email address",
+            "example": "user@example.com",
+            "type": "string"
+          }
+        }
+      },
+      "MerchantEmailLoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "Merchant email",
+            "type": "string"
+          },
+          "code": {
+            "description": "6-digit verification code",
+            "minLength": 6,
+            "maxLength": 6,
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/admin/register": {
+      "post": {
+        "operationId": "admincontroller_register",
+        "tags": [
+          "Admin"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminRegisterDto"
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/login": {
+      "post": {
+        "operationId": "admincontroller_login",
+        "tags": [
+          "Admin"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminLoginDto"
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/merchants": {
+      "get": {
+        "operationId": "admincontroller_getmerchantlist",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "description": "Page number",
+              "required": false,
+              "default": 1,
+              "type": "number"
+            },
+            "required": false
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Page size",
+            "schema": {
+              "description": "Page size",
+              "required": false,
+              "default": 10,
+              "type": "number"
+            },
+            "required": false
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Merchant status filter",
+            "schema": {
+              "description": "Merchant status filter",
+              "required": false,
+              "type": "number",
+              "enum": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/merchants/{id}": {
+      "get": {
+        "operationId": "admincontroller_getmerchantdetail",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/merchants/audit": {
+      "post": {
+        "operationId": "admincontroller_auditmerchant",
+        "tags": [
+          "Admin"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MerchantAuditDto"
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "homecontroller_home",
+        "tags": [
+          "Default"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/merchant/upload": {
+      "post": {
+        "operationId": "merchantcontroller_uploadfile",
+        "tags": [
+          "Merchant"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/merchant/add": {
+      "post": {
+        "operationId": "merchantcontroller_createmerchant",
+        "tags": [
+          "Merchant"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMerchantDto"
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/merchant/info": {
+      "get": {
+        "operationId": "merchantcontroller_getmerchant",
+        "tags": [
+          "Merchant"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/merchant/qrcode": {
+      "post": {
+        "operationId": "merchantcontroller_generateqrcode",
+        "tags": [
+          "Merchant"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/merchant/send-email-code": {
+      "post": {
+        "operationId": "merchantcontroller_sendemailcode",
+        "tags": [
+          "Merchant"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendEmailCodeDto"
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/merchant/login-with-email": {
+      "post": {
+        "operationId": "merchantcontroller_loginwithemail",
+        "tags": [
+          "Merchant"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MerchantEmailLoginDto"
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
