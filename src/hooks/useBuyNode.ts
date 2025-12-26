@@ -52,10 +52,6 @@ export function useBuyNode() {
       console.error("Wallet not connected");
       return;
     }
-    console.log("buyTier1");
-    console.log("SALE_ADDRESS:", SALE_ADDRESS);
-    console.log("functionName:", "buyTier1");
-    console.log("account:", address);
     const res = await waitForTransactionReceipt(
       await walletClient.writeContract({
         address: SALE_ADDRESS,
@@ -67,18 +63,6 @@ export function useBuyNode() {
         gasPrice: 5_000_000_000n,
       })
     );
-    if (!res) {
-      try {
-        await publicClient.simulateContract({
-          address: SALE_ADDRESS,
-          abi: SALE_ABI,
-          functionName: "buyTier1",
-          account: address,
-        });
-      } catch (e: any) {
-        console.error("simulate revert reason:", e.shortMessage);
-      }
-    }
 
     return res;
   };
@@ -100,19 +84,19 @@ export function useBuyNode() {
       })
     );
 
-    if (!res) {
-      try {
-        await publicClient.simulateContract({
-          address: SALE_ADDRESS,
-          abi: SALE_ABI,
-          functionName: "buyTier2",
-          account: address,
-        });
-      } catch (e: any) {
-        console.error("simulate revert reason:", e.shortMessage);
-        // toast.error(e.shortMessage);
-      }
-    }
+    // if (!res) {
+    //   try {
+    //     await publicClient.simulateContract({
+    //       address: SALE_ADDRESS,
+    //       abi: SALE_ABI,
+    //       functionName: "buyTier2",
+    //       account: address,
+    //     });
+    //   } catch (e: any) {
+    //     console.error("simulate revert reason:", e.shortMessage);
+    //     // toast.error(e.shortMessage);
+    //   }
+    // }
 
     return res;
   };
@@ -125,11 +109,6 @@ export function useBuyNode() {
       console.error("Wallet not connected");
       return;
     }
-    console.log("bindAndBuyTier1");
-    console.log("SALE_ADDRESS:", SALE_ADDRESS);
-    console.log("functionName:", "bindAndBuyTier1");
-    console.log("account:", address);
-    console.log("referrer:", referrer);
     const res = await waitForTransactionReceipt(
       await walletClient.writeContract({
         address: SALE_ADDRESS,
@@ -143,20 +122,20 @@ export function useBuyNode() {
       })
     );
 
-    if (!res) {
-      try {
-        await publicClient.simulateContract({
-          address: SALE_ADDRESS,
-          abi: SALE_ABI,
-          functionName: "bindAndBuyTier2",
-          args: [referrer],
-          account: address,
-        });
-      } catch (e: any) {
-        console.error("simulate revert reason:", e.shortMessage);
-        // toast.error(e.shortMessage);
-      }
-    }
+    // if (!res) {
+    //   try {
+    //     await publicClient.simulateContract({
+    //       address: SALE_ADDRESS,
+    //       abi: SALE_ABI,
+    //       functionName: "bindAndBuyTier2",
+    //       args: [referrer],
+    //       account: address,
+    //     });
+    //   } catch (e: any) {
+    //     console.error("simulate revert reason:", e.shortMessage);
+    //     // toast.error(e.shortMessage);
+    //   }
+    // }
 
     return res;
   };
@@ -182,20 +161,20 @@ export function useBuyNode() {
       })
     );
 
-    if (!res) {
-      try {
-        await publicClient.simulateContract({
-          address: SALE_ADDRESS,
-          abi: SALE_ABI,
-          functionName: "bindAndBuyTier2",
-          args: [referrer],
-          account: address,
-        });
-      } catch (e: any) {
-        console.error("simulate revert reason:", e.shortMessage);
-        // toast.error(e.shortMessage);
-      }
-    }
+    // if (!res) {
+    //   try {
+    //     await publicClient.simulateContract({
+    //       address: SALE_ADDRESS,
+    //       abi: SALE_ABI,
+    //       functionName: "bindAndBuyTier2",
+    //       args: [referrer],
+    //       account: address,
+    //     });
+    //   } catch (e: any) {
+    //     console.error("simulate revert reason:", e.shortMessage);
+    //     // toast.error(e.shortMessage);
+    //   }
+    // }
 
     return res;
   };

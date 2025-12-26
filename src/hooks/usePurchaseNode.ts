@@ -37,25 +37,23 @@ export function usePurchaseNode() {
     try {
       const price =
         tier === NODE_TIER.NORMAL ? NODE_PRICE.tier1 : NODE_PRICE.tier2;
+
       console.log("hasPurchased:", hasPurchased, referrer);
+
       if (!hasPurchased && !referrer) {
-        // toast.error("请填写推荐人地址");
         console.error("请填写推荐人地址");
         return;
       }
 
-      console.log("usdt.balance:", usdt.balance, price);
       if (usdt.balance < price) {
-        // toast.error("USDT 余额不足");
         console.error("USDT 余额不足");
         return;
       }
 
-      console.log("usdt.allowance:", usdt.allowance, price);
       if (usdt.allowance < price) {
         console.warn("USDT 授权不足");
         const hash = await approve(price);
-        console.log("approve hash:", hash);
+
         if (hash) {
           const receipt = await publicClient.waitForTransactionReceipt({
             hash,
@@ -63,7 +61,6 @@ export function usePurchaseNode() {
           console.log("receipt:", receipt);
 
           if (receipt.status !== "success") {
-            // toast.error("USDT 授权失败");
             console.error("USDT 授权失败");
             return;
           }
@@ -71,7 +68,6 @@ export function usePurchaseNode() {
           const onChainAllowance = await getAllowance();
 
           if (onChainAllowance && onChainAllowance < price) {
-            // toast.error("授权未生效");
             console.error("授权未生效");
             return;
           }
